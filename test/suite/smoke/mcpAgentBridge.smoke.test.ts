@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import { MCP_OPERATION_CATALOG, MCP_TOOL_CATALOG } from '../../../src/agent/mcpAdapter/toolCatalog';
 
-const EXTENSION_ID = 'Lekot.1c-metadata-tree-vscode';
+const EXTENSION_ID = 'unchnm.1c-metadata-tree';
 
 interface Discovery {
   readonly schemaVersion: number;

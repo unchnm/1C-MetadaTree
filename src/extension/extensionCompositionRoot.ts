@@ -39,6 +39,7 @@ import {
 } from '../reload/requestConfigurationReload';
 import { reconcileAfterCommit } from '../reload/reconciliation';
 import { MetadataTreeDataProvider } from '../providers/treeDataProvider';
+import { MetadataSearchView } from '../providers/metadataSearchView';
 import { PropertiesProvider } from '../providers/propertiesProvider';
 import { TypeEditorProvider } from '../providers/typeEditorProvider';
 import { RolesRightsEditorProvider } from '../rolesEditor/rolesRightsEditorProvider';
@@ -621,6 +622,17 @@ export class ExtensionCompositionRoot implements vscode.Disposable {
     const treeDataProvider = new MetadataTreeDataProvider();
     this.registerDisposable('tree data provider', treeDataProvider);
     this.composition.publish({ treeDataProvider });
+    // 1C-MetadataTree: begin temporary search input registration.
+    // Native-tree search input is a temporary VS Code InputBox.
+    const metadataSearchView = new MetadataSearchView(treeDataProvider);
+    this.registerDisposable('metadata search view', metadataSearchView);
+    this.registerDisposable('focus metadata search', vscode.commands.registerCommand(
+      '1c-metadata-tree.focusSearch', () => metadataSearchView.open(),
+    ));
+    this.registerDisposable('clear metadata search text', vscode.commands.registerCommand(
+      '1c-metadata-tree.clearSearchText', () => metadataSearchView.clear(),
+    ));
+    // 1C-MetadataTree: end temporary search input registration.
 
     const treeView = vscode.window.createTreeView('1c-metadata-tree', {
       treeDataProvider,

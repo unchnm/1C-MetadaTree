@@ -14772,11 +14772,28 @@ if (typeof globalThis !== "undefined") { globalThis.SdblAstVisitor = SdblAstVisi
             });
 
             elements.btnAddField.addEventListener('click', function() {
-                const expr = prompt('Введите поле или выражение (например: Номенклатура.Наименование):');
-                if (expr && expr.trim()) {
-                    addFieldToQuery(expr.trim());
-                }
+                if (getActiveQuery().type === 'DropTable') return;
+                // 1C-MetadataTree: begin add-field expression editor.
+                // Use the same expression editor as the edit button for new fields.
+                openExpressionBuilder({
+                    title: 'Новое выражение',
+                    value: '',
+                    onSave: function(value) {
+                        const expr = value.trim();
+                        if (!expr) return;
+                        const q = getActiveQuery();
+                        if (q.type === 'DropTable') return;
+                        if (!q.fields) q.fields = [];
+                        const field = { expression: expr, alias: uniqueFieldAlias(q, 'Выражение') };
+                        insertResultField(q, q.fields.length, field);
+                        renderSelectedFields();
+                        renderTab8();
+                        notifyChange();
+                        markPanelRow('tbody-selected-fields', q.fields.indexOf(field));
+                    }
+                });
             });
+            // 1C-MetadataTree: end add-field expression editor.
 
             if (elements.tbodyFromTables) {
                 const tablesDropZone = elements.tbodyFromTables.closest('.table-responsive');

@@ -146,6 +146,13 @@ export function locateMetadataFile(
     return null;
   }
 
+  // 1C-MetadataTree: begin EDT source-root adjustment.
+  // EDT stores metadata under src while its registered root is the project directory.
+  if (segments[0] === 'src' && segments.length > 1 && ALL_SUPPORTED_TYPES.has(segments[1])) {
+    segments = segments.slice(1);
+  }
+  // 1C-MetadataTree: end EDT source-root adjustment.
+
   const objectType = segments[0];
 
   if (!ALL_SUPPORTED_TYPES.has(objectType)) {
@@ -444,6 +451,13 @@ function parseFormPath(
   objectName: string,
   formRest: string[]
 ): MetadataLocation | null {
+  // 1C-MetadataTree: begin EDT form-path adjustment.
+  // EDT form paths are Forms/Y/Module.bsl and Forms/Y/Form.form.
+  if (formRest.length === 2 && (formRest[1] === 'Module.bsl' || formRest[1] === 'Form.form')) {
+    return { ...base, objectName, subPath: { kind: 'form', name: formRest[0], subFile: formRest[1] === 'Module.bsl' ? 'module' : 'container' } };
+  }
+  // 1C-MetadataTree: end EDT form-path adjustment.
+
   // Forms/Y.xml — flat form XML
   if (formRest.length === 1 && formRest[0].toLowerCase().endsWith('.xml')) {
     const formName = stripXmlExt(formRest[0]);

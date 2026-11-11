@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import * as vscode from 'vscode';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 
-const EXTENSION_ID = 'Lekot.1c-metadata-tree-vscode';
+const EXTENSION_ID = 'unchnm.1c-metadata-tree';
 const LIST_CONFIGURATIONS_COMMAND = '1c-metadata-tree.agent.listConfigurations';
 const CREATE_OBJECT_COMMAND = '1c-metadata-tree.agent.createObject';
 const SET_PROPERTIES_COMMAND = '1c-metadata-tree.agent.setProperties';

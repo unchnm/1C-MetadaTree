@@ -33,10 +33,10 @@ suite('Smoke: 1C metadata tree, forms, commands', () => {
 
   suiteSetup(async function () {
     this.timeout(30000);
-    const ext = vscode.extensions.getExtension('Lekot.1c-metadata-tree-vscode');
+    const ext = vscode.extensions.getExtension('unchnm.1c-metadata-tree');
     if (!ext) {
       throw new Error(
-        'Extension Lekot.1c-metadata-tree-vscode not loaded. Ensure runSmoke launches with extensionDevelopmentPath and a workspace.'
+        'Extension unchnm.1c-metadata-tree not loaded. Ensure runSmoke launches with extensionDevelopmentPath and a workspace.'
       );
     }
     if (!ext.isActive) {

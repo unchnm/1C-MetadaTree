@@ -24,7 +24,9 @@ export class TreeLocationNavigator {
     }
 
     let searchRoot = configRootNode;
-    if (loc.extensionName) {
+    const rootIsExtension = path.basename(path.dirname(loc.configRoot)) === 'ConfigurationExtensions'
+      && path.basename(loc.configRoot) === loc.extensionName;
+    if (loc.extensionName && !rootIsExtension) {
       const extensionRoot = await this.findExtensionRootByName(loc.configRoot, loc.extensionName);
       if (extensionRoot === null) {
         return null;
@@ -154,7 +156,10 @@ export class TreeLocationNavigator {
           if (subPath.subFile === 'xml' || subPath.subFile === 'container') {
             return objectNode;
           }
-          return this.findModuleNode(objectNode, 'Module.bsl');
+        // 1C-MetadataTree: begin object-module fallback.
+        // fall back to the form/object node when no module leaf exists.
+        return (await this.findModuleNode(objectNode, 'Module.bsl')) ?? objectNode;
+        // 1C-MetadataTree: end object-module fallback.
         }
         const formsFolder = await this.findChildById(objectNode, 'Forms');
         if (!formsFolder) {
@@ -171,7 +176,10 @@ export class TreeLocationNavigator {
         if (subPath.subFile === 'xml' || subPath.subFile === 'container') {
           return formNode;
         }
-        return this.findModuleNode(formNode, 'Module.bsl');
+        // 1C-MetadataTree: begin form-module fallback.
+        // EDT and lazy form trees may expose only the form node.
+        return (await this.findModuleNode(formNode, 'Module.bsl')) ?? formNode;
+        // 1C-MetadataTree: end form-module fallback.
       }
       case 'command': {
         const commandsFolder = await this.findChildById(objectNode, 'Commands');

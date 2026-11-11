@@ -11,7 +11,7 @@ suite('Properties Integration Test Suite', () => {
 
   suiteSetup(async function () {
     this.timeout(8000);
-    extension = vscode.extensions.getExtension('Lekot.1c-metadata-tree-vscode');
+    extension = vscode.extensions.getExtension('unchnm.1c-metadata-tree');
     if (extension && !extension.isActive) {
       try {
         await extension.activate();
