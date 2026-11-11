@@ -14773,7 +14773,8 @@ if (typeof globalThis !== "undefined") { globalThis.SdblAstVisitor = SdblAstVisi
 
             elements.btnAddField.addEventListener('click', function() {
                 if (getActiveQuery().type === 'DropTable') return;
-                // 1C-MetadataTree: use the same expression editor as the edit button for new fields.
+                // 1C-MetadataTree: begin add-field expression editor.
+                // Use the same expression editor as the edit button for new fields.
                 openExpressionBuilder({
                     title: 'Новое выражение',
                     value: '',

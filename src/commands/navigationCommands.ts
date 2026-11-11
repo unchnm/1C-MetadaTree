@@ -97,7 +97,8 @@ export function registerNavigationCommands(
     }
   );
 
-  // 1C-MetadataTree: reveal active files after considering the current tree filter.
+  // 1C-MetadataTree: begin active-file reveal adjustment.
+  // Reveal active files after considering the current tree filter.
   const revealActiveFileCommand = vscode.commands.registerCommand(
     '1c-metadata-tree.revealActiveFileInTree',
     async () => {

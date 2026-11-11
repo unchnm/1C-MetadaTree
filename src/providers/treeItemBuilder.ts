@@ -109,7 +109,8 @@ export function buildTreeItem(element: TreeNode, options: TreeItemBuildOptions):
       // deploy-selected-objects context menu commands become visible.
       treeItem.contextValue = `${treeItem.contextValue} bindingBound`;
     }
-    // 1C-MetadataTree: mark actual objects for object-level context commands.
+    // 1C-MetadataTree: begin metadata-object context marker.
+    // Mark actual objects for object-level context commands.
     const metadataDescriptor = getMetadataTypeDescriptorByType(element.type);
     if (metadataDescriptor && element.parent?.id === metadataDescriptor.designerFolder && element.id !== metadataDescriptor.designerFolder) {
       treeItem.contextValue = appendContextTokens(treeItem.contextValue, ['metadataObject']);
