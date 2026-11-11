@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import { cleanupSmokeFile } from '../../helpers/smokeFileCleanup';
 
-const EXTENSION_ID = 'Lekot.1c-metadata-tree-vscode';
+const EXTENSION_ID = 'unchnm.1c-metadata-tree';
 
 function labels(result: vscode.CompletionList | vscode.CompletionItem[] | undefined): string[] {
   return completionItems(result).map(({ label }) => typeof label === 'string' ? label : label.label);

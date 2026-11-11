@@ -1,4 +1,4 @@
-[Релизы](https://github.com/lekot/VScodePluginFor1CDev/releases)
+[Релизы](https://github.com/unchnm/1C-MetadataTree/releases)
 
 Вся фича написана роботами. Багрепорты принимаю с благодарностью
 
@@ -153,7 +153,7 @@ Legacy endpoint `/command` остаётся доступен для совмес
 
 ### Из VSIX с GitHub Releases
 
-1. Скачайте файл `.vsix` со [страницы GitHub Releases](https://github.com/lekot/VScodePluginFor1CDev/releases).
+1. Скачайте файл `.vsix` со [страницы GitHub Releases](https://github.com/unchnm/1C-MetadataTree/releases).
 2. В VS Code: `Ctrl+Shift+P` → **Install from VSIX…** → укажите скачанный файл.
 3. Перезагрузите окно при необходимости.
 
@@ -419,6 +419,6 @@ Workspace → FormatDetector → MetadataParser → TreeNode → TreeDataProvide
 ## Поддержка
 
 Если у вас возникли проблемы или вопросы:
-1. Проверьте [Issues](https://github.com/lekot/VScodePluginFor1CDev/issues)
+1. Проверьте [Issues](https://github.com/unchnm/1C-MetadataTree/issues)
 2. Создайте новый Issue с описанием проблемы
 3. Приложите логи из Output канала **CDT 41**
