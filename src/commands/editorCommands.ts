@@ -1,4 +1,8 @@
 import * as vscode from 'vscode';
+// 1C-MetadataTree: fork-owned module commands are registered below.
+import { openMetadataModule } from './openMetadataModule';
+import { openDefaultObjectFormModule } from './openDefaultObjectFormModule';
+// 1C-MetadataTree: end fork-owned module imports.
 import * as fs from 'fs';
 import * as path from 'path';
 import type { EditorCommandsContext } from '../extension/extensionFeatureContexts';
@@ -815,6 +819,13 @@ export function registerEditorCommands(deps: RegisterEditorCommandsDeps): vscode
     showPropertiesCommand,
     openXMLCommand,
     openBslModuleCommand,
+    // 1C-MetadataTree: open the metadata object's assigned default form module.
+    vscode.commands.registerCommand('1c-metadata-tree.openDefaultObjectFormModule', (node?: TreeNode) =>
+      openDefaultObjectFormModule(getSelectedNode(state, node))),
+    // 1C-MetadataTree: end default object form command.
+    ...(['ObjectModule', 'ManagerModule', 'RecordSetModule', 'ValueManagerModule', 'CommonModule', 'FormModule', 'ApplicationModule', 'SessionModule', 'ExternalConnectionModule'] as const).map(kind =>
+      vscode.commands.registerCommand(`1c-metadata-tree.open${kind}`, (node?: TreeNode) =>
+        openMetadataModule(getSelectedNode(state, node), kind))),
     openFormEditorCommand,
     openRightsEditorCommand,
     openTemplatePreviewCommand,

@@ -171,6 +171,22 @@ export function registerUtilityCommandsTrailing(deps: RegisterUtilityCommandsDep
     }
   );
 
+  // 1C-MetadataTree: split the legacy copy-path-or-name action into explicit actions.
+  const copyNameCommand = vscode.commands.registerCommand('1c-metadata-tree.copyName', async (node?: TreeNode) => {
+    const target = getSelectedNode(state, node);
+    if (!target) { void vscode.window.showWarningMessage('Выберите элемент дерева метаданных.'); return; }
+    await vscode.env.clipboard.writeText(target.name);
+    vscode.window.setStatusBarMessage(`Скопировано: ${target.name}`, 2000);
+  });
+  const copyPathCommand = vscode.commands.registerCommand('1c-metadata-tree.copyPath', async (node?: TreeNode) => {
+    const target = getSelectedNode(state, node);
+    if (!target) { void vscode.window.showWarningMessage('Выберите элемент дерева метаданных.'); return; }
+    if (!target.filePath) { void vscode.window.showInformationMessage('Для этого элемента путь к файлу не задан.'); return; }
+    await vscode.env.clipboard.writeText(target.filePath);
+    vscode.window.setStatusBarMessage(`Скопировано: ${target.filePath}`, 2000);
+  });
+  // 1C-MetadataTree: end explicit copy actions.
+
   const clearCacheCommand = vscode.commands.registerCommand(
     '1c-metadata-tree.clearCache',
     async () => {
@@ -277,5 +293,5 @@ export function registerUtilityCommandsTrailing(deps: RegisterUtilityCommandsDep
     }
   );
 
-  return [copyPathOrNameCommand, clearCacheCommand, exportLogsCommand, copyDiagnosticsSummaryCommand, getYamlCommand];
+  return [copyPathOrNameCommand, copyNameCommand, copyPathCommand, clearCacheCommand, exportLogsCommand, copyDiagnosticsSummaryCommand, getYamlCommand];
 }

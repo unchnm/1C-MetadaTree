@@ -1,4 +1,9 @@
 export const coreSuiteFiles: string[] = [
+  'suite/metadataNavigationHost.test.js',
+  'suite/openMetadataModule.test.js',
+  'suite/metadataSearchView.test.js',
+  'suite/metadataCopyCommands.test.js',
+  'suite/metadataDocumentGrouping.test.js',
   'suite/epic36Block6Acceptance.test.js',
   'suite/designerParser.test.js',
   'suite/designerInlineMetadataParser.test.js',
