@@ -10,6 +10,7 @@ import type {
   SupportTreeDecoration,
 } from '../support/supportTreeDecorations';
 import { getIconForType } from './treeIconMapper';
+import { getMetadataTypeDescriptorByType } from '../constants/metadataTypeDescriptors';
 import { Logger } from '../utils/logger';
 import type { RepositoryTreeDecoration } from '../services/configurationRepository/repositoryTreeDecorations';
 
@@ -108,6 +109,12 @@ export function buildTreeItem(element: TreeNode, options: TreeItemBuildOptions):
       // deploy-selected-objects context menu commands become visible.
       treeItem.contextValue = `${treeItem.contextValue} bindingBound`;
     }
+    // 1C-MetadataTree: mark actual objects for object-level context commands.
+    const metadataDescriptor = getMetadataTypeDescriptorByType(element.type);
+    if (metadataDescriptor && element.parent?.id === metadataDescriptor.designerFolder && element.id !== metadataDescriptor.designerFolder) {
+      treeItem.contextValue = appendContextTokens(treeItem.contextValue, ['metadataObject']);
+    }
+    // 1C-MetadataTree: end metadata-object context marker.
     if (
       (element.type === MetadataType.DataProcessor || element.type === MetadataType.Report)
       && element.filePath

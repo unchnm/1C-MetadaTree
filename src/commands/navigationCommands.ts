@@ -51,50 +51,6 @@ export function registerNavigationCommands(
     }
   );
 
-  const focusSearchCommand = vscode.commands.registerCommand(
-    '1c-metadata-tree.focusSearch',
-    async () => {
-      const history = state.treeDataProvider.getSearchHistory();
-      const current = state.treeDataProvider.getSearchQuery();
-      let query = current;
-      if (history.length > 0) {
-        const pick = await vscode.window.showQuickPick(
-          [{ label: '$(add) Новый поиск…', value: '' }, ...history.map((h) => ({ label: h, value: h }))],
-          { placeHolder: 'Поиск по названиям (и синониму)', matchOnDescription: false }
-        );
-        if (pick === undefined) {
-          return;
-        }
-        query = pick.value;
-        if (query === '') {
-          const input = await vscode.window.showInputBox({
-            value: current,
-            prompt: 'Поиск по названиям (и синониму)',
-            placeHolder: 'Введите строку или выберите из истории',
-          });
-          if (input === undefined) {
-            return;
-          }
-          query = input;
-        }
-      } else {
-        const input = await vscode.window.showInputBox({
-          value: current,
-          prompt: 'Поиск по названиям (и синониму)',
-          placeHolder: 'Введите строку',
-        });
-        if (input === undefined) {
-          return;
-        }
-        query = input;
-      }
-      state.treeDataProvider.setSearchQuery(query);
-      if (query.trim()) {
-        state.treeDataProvider.addSearchToHistory(query);
-      }
-    }
-  );
-
   const clearSearchCommand = vscode.commands.registerCommand(
     '1c-metadata-tree.clearSearch',
     () => {
@@ -141,6 +97,7 @@ export function registerNavigationCommands(
     }
   );
 
+  // 1C-MetadataTree: reveal active files after considering the current tree filter.
   const revealActiveFileCommand = vscode.commands.registerCommand(
     '1c-metadata-tree.revealActiveFileInTree',
     async () => {
@@ -165,11 +122,6 @@ export function registerNavigationCommands(
         vscode.window.showInformationMessage(MESSAGES.REVEAL_NOT_FOUND_IN_METADATA);
         return;
       }
-      const node = await state.treeDataProvider.findNodeByLocation(loc);
-      if (node === null) {
-        vscode.window.showInformationMessage(MESSAGES.REVEAL_NODE_NOT_FOUND);
-        return;
-      }
       if (state.treeDataProvider.hasActiveFilter()) {
         const choice = await vscode.window.showInformationMessage(
           MESSAGES.REVEAL_FILTER_ACTIVE_PROMPT,
@@ -184,13 +136,18 @@ export function registerNavigationCommands(
           return;
         }
       }
+      const node = await state.treeDataProvider.findNodeByLocation(loc);
+      if (node === null) {
+        vscode.window.showInformationMessage(MESSAGES.REVEAL_NODE_NOT_FOUND);
+        return;
+      }
       await state.treeView.reveal(node, { select: true, focus: true, expand: 1 });
     }
   );
+  // 1C-MetadataTree: end active-file reveal adjustment.
 
   return [
     focusTreeCommand,
-    focusSearchCommand,
     clearSearchCommand,
     nextMatchCommand,
     previousMatchCommand,

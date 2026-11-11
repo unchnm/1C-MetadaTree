@@ -150,6 +150,16 @@ suite('editorCommands', () => {
       '1c-metadata-tree.queryBuilder',
       '1c-metadata-tree.queryBuilderWithProcessing',
       '1c-metadata-tree.queryBuilderForText',
+      '1c-metadata-tree.openDefaultObjectFormModule',
+      '1c-metadata-tree.openObjectModule',
+      '1c-metadata-tree.openManagerModule',
+      '1c-metadata-tree.openRecordSetModule',
+      '1c-metadata-tree.openValueManagerModule',
+      '1c-metadata-tree.openCommonModule',
+      '1c-metadata-tree.openFormModule',
+      '1c-metadata-tree.openApplicationModule',
+      '1c-metadata-tree.openSessionModule',
+      '1c-metadata-tree.openExternalConnectionModule',
     ]);
   });
 
