@@ -9,7 +9,7 @@ suite('Smoke: template editor versioned edits', () => {
   test('applies through TextEditor.edit with only the custom editor open', async function () {
     this.timeout(30000);
 
-    const extension = vscode.extensions.getExtension('Lekot.1c-metadata-tree-vscode');
+    const extension = vscode.extensions.getExtension('unchnm.1c-metadata-tree');
     assert.ok(extension, 'extension must be available in the smoke host');
     if (!extension.isActive) {
       await extension.activate();

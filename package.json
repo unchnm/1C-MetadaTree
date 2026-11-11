@@ -1,17 +1,17 @@
 {
-  "name": "1c-metadata-tree-vscode",
-  "displayName": "CDT 41 (Community Development Tools for 1C)",
+  "name": "1c-metadata-tree",
+  "displayName": "1C: Metadata Tree",
   "description": "Community Development Tools for 1C: visualize and edit 1C:Enterprise configuration metadata tree (EDT & Designer XML).",
-  "version": "0.60.2",
+  "version": "0.60.3",
   "icon": "images/icon.png",
-  "publisher": "Lekot",
+  "publisher": "unchnm",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lekot/VScodePluginFor1CDev"
+    "url": "https://github.com/unchnm/1C-MetadataTree"
   },
   "bugs": {
-    "url": "https://github.com/lekot/VScodePluginFor1CDev/issues"
+    "url": "https://github.com/unchnm/1C-MetadataTree/issues"
   },
   "engines": {
     "vscode": "^1.82.0"
@@ -167,10 +167,31 @@
         "category": "CDT 41"
       },
       {
+        "command": "1c-metadata-tree.copyName",
+        "title": "Копировать имя",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.copyPath",
+        "title": "Копировать путь",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openDefaultObjectFormModule",
+        "title": "Открыть модуль основной формы объекта",
+        "category": "CDT 41"
+      },
+      {
         "command": "1c-metadata-tree.focusSearch",
         "title": "Поиск по дереву",
         "category": "CDT 41",
         "icon": "$(search)"
+      },
+      {
+        "command": "1c-metadata-tree.clearSearchText",
+        "title": "Очистить поиск по дереву",
+        "category": "CDT 41",
+        "icon": "$(close)"
       },
       {
         "command": "1c-metadata-tree.clearSearch",
@@ -1171,6 +1192,51 @@
         "command": "1c-template-editor.compareFiles",
         "title": "CDT 41: Сравнить макеты",
         "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openObjectModule",
+        "title": "Открыть модуль объекта",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openManagerModule",
+        "title": "Открыть модуль менеджера",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openRecordSetModule",
+        "title": "Открыть модуль набора записей",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openCommonModule",
+        "title": "Открыть модуль",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openFormModule",
+        "title": "Открыть модуль формы",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openValueManagerModule",
+        "title": "Открыть модуль менеджера значений",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openApplicationModule",
+        "title": "Открыть модуль приложения",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openSessionModule",
+        "title": "Открыть модуль сеанса",
+        "category": "CDT 41"
+      },
+      {
+        "command": "1c-metadata-tree.openExternalConnectionModule",
+        "title": "Открыть модуль внешнего соединения",
+        "category": "CDT 41"
       }
     ],
     "customEditors": [
@@ -1298,6 +1364,16 @@
       ],
       "view/title": [
         {
+          "command": "1c-metadata-tree.focusSearch",
+          "when": "view == 1c-metadata-tree",
+          "group": "navigation@2"
+        },
+        {
+          "command": "1c-metadata-tree.clearSearchText",
+          "when": "view == 1c-metadata-tree",
+          "group": "navigation@3"
+        },
+        {
           "command": "1c-metadata-tree.configuration.createProject",
           "when": "view == 1c-metadata-tree",
           "group": "navigation"
@@ -1309,16 +1385,6 @@
         },
         {
           "command": "1c-metadata-tree.refresh",
-          "when": "view == 1c-metadata-tree",
-          "group": "navigation"
-        },
-        {
-          "command": "1c-metadata-tree.focusSearch",
-          "when": "view == 1c-metadata-tree",
-          "group": "navigation"
-        },
-        {
-          "command": "1c-metadata-tree.clearSearch",
           "when": "view == 1c-metadata-tree",
           "group": "navigation"
         },
@@ -1563,42 +1629,47 @@
         {
           "command": "1c-metadata-tree.openXML",
           "when": "view == 1c-metadata-tree",
-          "group": "navigation"
+          "group": "navigation@10"
+        },
+        {
+          "command": "1c-metadata-tree.openDefaultObjectFormModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^(Catalog|Document|BusinessProcess|Task|ChartOfAccounts|ChartOfCharacteristicTypes|ChartOfCalculationTypes|ExchangePlan)($|[. ])/ && viewItem =~ /metadataObject/",
+          "group": "navigation@11"
         },
         {
           "command": "1c-metadata-tree.openBslModule",
           "when": "view == 1c-metadata-tree && viewItem =~ /^MethodBsl\\b/",
-          "group": "navigation"
+          "group": "navigation@20"
         },
         {
           "command": "1c-metadata-tree.showProperties",
           "when": "view == 1c-metadata-tree",
-          "group": "navigation"
+          "group": "zzzz_properties"
         },
         {
           "command": "1c-metadata-tree.openFormEditor",
           "when": "view == 1c-metadata-tree && viewItem =~ /^Form\\b/",
-          "group": "navigation"
+          "group": "navigation@20"
         },
         {
           "command": "1c-metadata-tree.openRightsEditor",
           "when": "view == 1c-metadata-tree && viewItem =~ /^Role\\b/",
-          "group": "navigation"
+          "group": "navigation@20"
         },
         {
           "command": "1c-metadata-tree.openTemplatePreview",
           "when": "view == 1c-metadata-tree && viewItem =~ /^Template\\b/",
-          "group": "navigation"
+          "group": "navigation@20"
         },
         {
           "command": "1c-metadata-tree.openTemplatePreview",
           "when": "view == 1c-metadata-tree && viewItem =~ /^CommonTemplate\\b/",
-          "group": "navigation"
+          "group": "navigation@20"
         },
         {
           "command": "1c-metadata-tree.openCommonPicture",
           "when": "view == 1c-metadata-tree && viewItem =~ /^CommonPicture\\b/",
-          "group": "navigation"
+          "group": "navigation@20"
         },
         {
           "command": "1c-metadata-tree.createElement",
@@ -1636,14 +1707,19 @@
           "group": "1_modify"
         },
         {
-          "command": "1c-metadata-tree.copyPathOrName",
+          "command": "1c-metadata-tree.copyName",
           "when": "view == 1c-metadata-tree",
-          "group": "3_copy"
+          "group": "3_copy@1"
+        },
+        {
+          "command": "1c-metadata-tree.copyPath",
+          "when": "view == 1c-metadata-tree",
+          "group": "3_copy@2"
         },
         {
           "command": "1c-metadata-tree.filterBySubsystem",
           "when": "view == 1c-metadata-tree && viewItem =~ /^Subsystem\\b/",
-          "group": "navigation"
+          "group": "navigation@30"
         },
         {
           "command": "1c-metadata-tree.editSubsystemComposition",
@@ -1708,7 +1784,7 @@
         {
           "command": "1c-metadata-tree.clearSubsystemFilter",
           "when": "view == 1c-metadata-tree && subsystemFilterActive",
-          "group": "navigation"
+          "group": "navigation@30"
         },
         {
           "command": "1c-metadata-tree.getYaml",
@@ -1829,6 +1905,51 @@
           "command": "1c-metadata-tree.showInterceptors",
           "when": "view == 1c-metadata-tree && viewItem =~ /MethodBsl/",
           "group": "3_extension@3"
+        },
+        {
+          "command": "1c-metadata-tree.openObjectModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^(Catalog|Document|Report|DataProcessor|BusinessProcess|Task|ChartOfAccounts|ChartOfCharacteristicTypes|ChartOfCalculationTypes|ExchangePlan)($|[. ])/",
+          "group": "navigation@1"
+        },
+        {
+          "command": "1c-metadata-tree.openManagerModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^(Enum|Catalog|Document|Report|DataProcessor|BusinessProcess|Task|ChartOfAccounts|ChartOfCharacteristicTypes|ChartOfCalculationTypes|ExchangePlan|InformationRegister|AccumulationRegister|AccountingRegister|CalculationRegister|Sequence)($|[. ])/",
+          "group": "navigation@2"
+        },
+        {
+          "command": "1c-metadata-tree.openRecordSetModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^(InformationRegister|AccumulationRegister|AccountingRegister|CalculationRegister|Sequence)($|[. ])/",
+          "group": "navigation@3"
+        },
+        {
+          "command": "1c-metadata-tree.openCommonModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^(CommonModule)($|[. ])/",
+          "group": "navigation@4"
+        },
+        {
+          "command": "1c-metadata-tree.openFormModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^(Form|CommonForm)($|[. ])/",
+          "group": "navigation@5"
+        },
+        {
+          "command": "1c-metadata-tree.openValueManagerModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^Constant($|[. ])/",
+          "group": "navigation@4"
+        },
+        {
+          "command": "1c-metadata-tree.openApplicationModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^Configuration($|[. ])/",
+          "group": "navigation@5"
+        },
+        {
+          "command": "1c-metadata-tree.openSessionModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^Configuration($|[. ])/",
+          "group": "navigation@6"
+        },
+        {
+          "command": "1c-metadata-tree.openExternalConnectionModule",
+          "when": "view == 1c-metadata-tree && viewItem =~ /^Configuration($|[. ])/",
+          "group": "navigation@7"
         }
       ]
     },
