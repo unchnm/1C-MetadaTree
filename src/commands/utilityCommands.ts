@@ -171,7 +171,8 @@ export function registerUtilityCommandsTrailing(deps: RegisterUtilityCommandsDep
     }
   );
 
-  // 1C-MetadataTree: split the legacy copy-path-or-name action into explicit actions.
+  // 1C-MetadataTree: begin explicit copy actions.
+  // Split the legacy copy-path-or-name action into explicit actions.
   const copyNameCommand = vscode.commands.registerCommand('1c-metadata-tree.copyName', async (node?: TreeNode) => {
     const target = getSelectedNode(state, node);
     if (!target) { void vscode.window.showWarningMessage('Выберите элемент дерева метаданных.'); return; }

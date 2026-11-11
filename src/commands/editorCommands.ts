@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-// 1C-MetadataTree: fork-owned module commands are registered below.
+// 1C-MetadataTree: begin fork-owned module commands.
 import { openMetadataModule } from './openMetadataModule';
 import { openDefaultObjectFormModule } from './openDefaultObjectFormModule';
 // 1C-MetadataTree: end fork-owned module imports.

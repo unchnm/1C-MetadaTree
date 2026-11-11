@@ -156,7 +156,8 @@ export class TreeLocationNavigator {
           if (subPath.subFile === 'xml' || subPath.subFile === 'container') {
             return objectNode;
           }
-        // 1C-MetadataTree: fall back to the form/object node when no module leaf exists.
+        // 1C-MetadataTree: begin object-module fallback.
+        // fall back to the form/object node when no module leaf exists.
         return (await this.findModuleNode(objectNode, 'Module.bsl')) ?? objectNode;
         // 1C-MetadataTree: end object-module fallback.
         }
@@ -175,7 +176,8 @@ export class TreeLocationNavigator {
         if (subPath.subFile === 'xml' || subPath.subFile === 'container') {
           return formNode;
         }
-        // 1C-MetadataTree: EDT and lazy form trees may expose only the form node.
+        // 1C-MetadataTree: begin form-module fallback.
+        // EDT and lazy form trees may expose only the form node.
         return (await this.findModuleNode(formNode, 'Module.bsl')) ?? formNode;
         // 1C-MetadataTree: end form-module fallback.
       }

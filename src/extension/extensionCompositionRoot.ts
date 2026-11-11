@@ -622,7 +622,8 @@ export class ExtensionCompositionRoot implements vscode.Disposable {
     const treeDataProvider = new MetadataTreeDataProvider();
     this.registerDisposable('tree data provider', treeDataProvider);
     this.composition.publish({ treeDataProvider });
-    // 1C-MetadataTree: native-tree search input is a temporary VS Code InputBox.
+    // 1C-MetadataTree: begin temporary search input registration.
+    // Native-tree search input is a temporary VS Code InputBox.
     const metadataSearchView = new MetadataSearchView(treeDataProvider);
     this.registerDisposable('metadata search view', metadataSearchView);
     this.registerDisposable('focus metadata search', vscode.commands.registerCommand(
